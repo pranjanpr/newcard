@@ -9,7 +9,7 @@ const AddDesc = props => {
   return (
     
       <View style={styles.buttonText}>
-      <Text>{props.desctitle}</Text> 
+      <Text style={{fontFamily: 'GorditaRegular'}}>{props.desctitle}</Text> 
       </View>
 
      
@@ -31,7 +31,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'black',
-    fontSize: 12
+    fontSize: 15,
+    paddingBottom: 5,
+    fontFamily: 'GorditaRegular'
   }
 });
 

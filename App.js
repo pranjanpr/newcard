@@ -8,7 +8,9 @@ import AddTask from './screens/AddTask';
 const fetchFonts = () => {
   return Font.loadAsync({
     'open-sans' : require('./assets/fonts/OpenSans-Regular.ttf'),
-    'open-sans-bold' : require('./assets/fonts/OpenSans-Bold.ttf')
+    'open-sans-bold' : require('./assets/fonts/OpenSans-Bold.ttf'),
+    'GorditaBold': require('./assets/fonts/Gordita_Bold.otf'),
+    'GorditaRegular': require('./assets/fonts/Gordita_Regular.otf'),
   });
 };
 

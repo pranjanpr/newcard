@@ -10,43 +10,43 @@ import AddDesc from '../components/AddDesc';
 
 const AddTask = props => {
 
-    return (    
-            <FlatList
-            
+    return (
+        <FlatList
+
             style={styles.flatsyle}
             data={TODO}
 
-            keyExtractor={(x,i)=>i.toString()}
-        
-             renderItem={ ({item})=>
-         
-                <Card style={{padding:20}} desctitle={item.description} id={item.id}>
-                    <Text style={styles.boldTextView}>{item.tasktitle}</Text>
-                    <AddDesc  desctitle={item.description} id={item.id} />
-                     </Card>}
-     
-            />
-            
+            keyExtractor={(x, i) => i.toString()}
+
+            renderItem={({ item }) =>
+
+                <Card style={{ padding: 20 }} desctitle={item.description} id={item.id}>
+                        <Text style={styles.boldTextView}>{item.tasktitle}</Text>
+                    <AddDesc desctitle={item.description} id={item.id} />
+                </Card>}
+
+        />
+
     );
 
 };
 
 const styles = StyleSheet.create({
-    flatsyle:{
-        
-     
+    flatsyle: {
+
+
     },
     screen: {
         flex: 1,
     },
     textView: {
         fontSize: 22,
-        fontFamily: 'open-sans',
+        fontFamily: 'GorditaRegular',
         marginVertical: 10
     },
     boldTextView: {
-        fontSize: 12,
-        fontFamily: 'open-sans-bold'
+        fontSize: 15,
+        fontFamily: 'GorditaBold'
     },
     taskInput: {
         width: '100%',
