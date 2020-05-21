@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "100%",
     borderBottomColor:'blue',
+    fontFamily: 'GorditaRegular'
   }
 });
 
