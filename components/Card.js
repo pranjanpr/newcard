@@ -1,56 +1,74 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Button } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import TODO from '../data/dummy-data';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import { TouchableWithoutFeedback } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
+import * as Progress from 'react-native-progress';
 
 let mytodo;
 const Card = props => {
 
   const [descPressed, setDescPressed] = useState(false);
+  const [presentProgress, setPresentProgress] = useState(parseFloat(0));
 
   const descPressedHandler = (iden) => {
 
-    if (descPressed === true)
-      setDescPressed(false);
-    else {
+    if (descPressed === false)
       setDescPressed(true);
-    }
     mytodo = TODO.find(function (todo, index) {
       return todo.id === iden;
     })
 
   };
 
+  const progressChangeHandler = () => {
+    setPresentProgress(1 / parseFloat(mytodo.daysbyhrs))
+  }
+
   let descOutput;
 
   if (descPressed) {
     descOutput = (
       <View>
-        <View style={styles.lowerInputView}>
-          <View style={{ width: "50%" }}>
-            <Text style={{ fontSize: 11, fontFamily: 'GorditaRegular' }}><Text style={styles.inputText}>{mytodo.timeleft}</Text> more hours to go</Text>
+        <View style={styles.someView}>
+          <View style={{ width: "56%" }}>
+            <Text style={styles.datastyle}><Text style={styles.inputText}>{mytodo.timeleft}</Text> more hours to go</Text>
           </View>
-          <View style={{ width: "50%", alignItems: 'flex-end' }}>
-            <Text style={{ fontSize: 11, fontFamily: 'GorditaRegular' }}><Text style={styles.inputText}>{mytodo.quanta}</Text> per day</Text>
+          <View style={{ width: "44%", alignItems: 'flex-end' }}>
+            <Text style={styles.datastyle}><Text style={styles.inputText}>{mytodo.quanta}</Text> per day</Text>
           </View>
         </View>
-        <View style={styles.lowerInputView}>
-          <View style={{ width: "60%" }}>
+
+        <View style={styles.someView}>
+          <View style={{ width: "56%" }}>
             <Text style={styles.inputText}>
               <FontAwesome5 name="calendar-alt" size={15} color="black" /><Text style> {mytodo.deadline}</Text></Text>
           </View>
-          <View style={{ width: "40%", alignItems: 'flex-end' }}>
+
+          <View style={{ width: "44%", flexDirection: "row-reverse", alignItems: "flex-end", }}>
             <TouchableOpacity>
+              <Entypo name="dots-three-vertical" size={15} color="black" />
+            </TouchableOpacity>
+            <Text>    </Text>
+            <TouchableOpacity onPress={progressChangeHandler}>
               <Text>
-                <Feather name="minus-circle" size={18} color="black" /><Text style={styles.inputText}> {mytodo.daysbyhrs}</Text>
+                <Feather name="minus-circle" size={12} color="black" /><Text style={styles.inputText}> {mytodo.daysbyhrs}HRS</Text>
               </Text>
             </TouchableOpacity>
           </View>
         </View>
-      </View >
+        <Progress.Bar 
+        progress={presentProgress} 
+        width={367}
+        unfilledColor='light-grey'
+        borderWidth={0}
+        borderRadius={500} 
+        color='#6075d1'
+        style={styles.bar}
+        animationType='spring' />
+      </View>
     );
 
   }
@@ -58,12 +76,16 @@ const Card = props => {
 
 
   return (
-    <View style={{ ...styles.card, ...props.style }}>
-      <TouchableOpacity onPress={descPressedHandler.bind(this, props.id)} id={props.id}>
+    <View style={styles.card}>
 
+      <TouchableOpacity
+        onPress={descPressedHandler.bind(this, props.id)}
+        id={props.id}
+        disabled={descPressed === true ? true : false}>
         <View >{props.children}</View>
         {descOutput}
       </TouchableOpacity>
+
     </View>
 
   );
@@ -75,24 +97,21 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.26,
-
-    backgroundColor: '#ffffff',
-    padding: 10,
+    backgroundColor: 'white',
     borderRadius: 10,
     width: "94%",
-
-    margin: 10,
+    marginTop: 40,
+    marginHorizontal: 10,
     borderWidth: 1,
     borderColor: "#D3D3D3",
-
-
-
+    elevation: 10,
   },
-  lowerInputView: {
+  someView: {
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
-    paddingVertical: 2
+    paddingVertical: 2,
+    paddingHorizontal: 20
 
   },
   inputText: {
@@ -100,22 +119,23 @@ const styles = StyleSheet.create({
     color: 'black',
     width: '49%',
     fontFamily: 'GorditaBold'
+  },
+  datastyle: {
+    fontSize: 11,
+    fontFamily: 'GorditaRegular',
+    color: 'black'
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
 
   },
-  mybutton: {
-    backgroundColor: 'white',
-    height: 40,
-    width: "25%",
-    marginVertical: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingHorizontal: 5,
-    borderColor: '#e3dddc',
-    borderWidth: 1
+  bar: {
+    borderWidth: 0,
+    height: 3,
+    paddingHorizontal: 5
   }
-
-
 });
 
 export default Card;

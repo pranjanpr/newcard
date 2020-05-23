@@ -1,29 +1,26 @@
 import React, { useState } from 'react';
 import { Text, View, Button, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, FlatList } from 'react-native';
 
-
 import Card from '../components/Card';
-import Input from '../components/Input';
 import TODO from '../data/dummy-data';
-import AddDesc from '../components/AddDesc';
-
 
 const AddTask = props => {
-
     return (
         <FlatList
-
-            style={styles.flatsyle}
+            style={styles.screen}
             data={TODO}
-
             keyExtractor={(x, i) => i.toString()}
-
             renderItem={({ item }) =>
-
-                <Card style={{ padding: 20 }} desctitle={item.description} id={item.id}>
-                        <Text style={styles.boldTextView}>{item.tasktitle}</Text>
-                    <AddDesc desctitle={item.description} id={item.id} />
-                </Card>}
+                <View style={{ flex: 1 }}>
+                    <Card desctitle={item.description} id={item.id}>
+                        <View style= {{paddingHorizontal: 20, paddingVertical: 10}}>
+                            <Text style={styles.boldTextView}>{item.tasktitle}</Text>
+                            <View style={styles.buttonText}>
+                                <Text style={{ fontFamily: 'GorditaRegular', color: 'black' }}>{item.description}</Text>
+                            </View>
+                        </View>
+                    </Card>
+                </View>}
 
         />
 
@@ -32,75 +29,19 @@ const AddTask = props => {
 };
 
 const styles = StyleSheet.create({
-    flatsyle: {
-
-
-    },
     screen: {
         flex: 1,
     },
-    textView: {
-        fontSize: 22,
-        fontFamily: 'GorditaRegular',
-        marginVertical: 10
-    },
     boldTextView: {
         fontSize: 15,
-        fontFamily: 'GorditaBold'
+        fontFamily: 'GorditaBold',
+        color: 'black'
     },
-    taskInput: {
-        width: '100%',
-        height: 50
-    },
-    lowerInputView: {
-        flexDirection: 'row',
-        width: '100%',
-        justifyContent: 'space-between'
-    },
-    otherInput: {
-        width: '49%',
-        height: 50
-    },
-    descInput: {
-        height: 90,
-        borderBottomColor: 'blue',
-        borderBottomWidth: 1,
-        paddingHorizontal: 10
-    },
-    nextButtonView: {
-        flexDirection: 'row-reverse',
-        justifyContent: 'space-between',
-        width: "100%",
-        paddingHorizontal: 5
-
-    },
-    inputText: {
-        fontSize: 10,
-        color: 'blue'
-    },
-    cbutton: {
-        padding: 10,
-        backgroundColor: 'blue',
-        height: 50,
-        width: 50,
-        borderRadius: 25,
-        marginBottom: 60,
-        marginRight: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    ButtonView: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end'
-    },
-    ButtonText: {
-        color: 'white',
-        fontSize: 30
-    },
-    button: {
-        width: "50%"
+    buttonText: {
+        color: 'black',
+        fontSize: 15,
+        paddingBottom: 5,
+        fontFamily: 'GorditaRegular'
     }
 });
 
